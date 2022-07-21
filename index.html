@@ -12,7 +12,15 @@
     <h1>Etch-A-Sketch</h1>
 
     <div class="container">
-        <div class="controls"></div>
+        <div class="controls">
+            <div class="grid-size">
+                <label for="grid-size">Enter the size of your grid (1 - 100):</label>
+                <div class="grid-size--selection">
+                    <input type="number" name="grid-size" id="grid-size" min="1" max="100" placeholder="16" class="grid-size--input">
+                    <button class="grid-size--btn">Create Grid</button>
+                </div>
+            </div>
+        </div>
         <div class="grid"></div>
     </div>
     
