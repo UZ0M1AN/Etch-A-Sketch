@@ -12,15 +12,34 @@
     <h1>Etch-A-Sketch</h1>
 
     <div class="container">
-        <div class="controls">
-            <div class="grid-size">
-                <label for="grid-size">Enter the size of your grid (1 - 100):</label>
-                <div class="grid-size--selection">
+        <div class="user">
+
+            <div class="instructions">
+                <h2>How To Sketch</h2>
+                <ul>
+                    <li>Set your grid size and click the 'Create Grid' button (min size is 1, max size is 100)</li>
+                    <li>Click your mouse to start / stop sketching</li>
+                    <li>Clear your grid with the 'Clear Grid' button</li>
+                </ul>
+            </div>
+
+            <div class="controls">
+                <label for="grid-size">Enter the size of your grid:</label>
+                <div class="select">
                     <input type="number" name="grid-size" id="grid-size" min="1" max="100" placeholder="16" class="grid-size--input">
-                    <button class="grid-size--btn">Create Grid</button>
+                    <button class="controls--create-btn">Create Grid</button>
+                </div>
+                <button class="controls--clear-btn">Clear Grid</button>
+                <button class="color-scheme">Use multi-color</button>
+
+                <div class="color-picker">
+                    <label for="color-picker">Pick a color:</label>
+                    <input type="color" name="color-picker" id="color-picker" value="#eeeeee">
                 </div>
             </div>
+
         </div>
+
         <div class="grid"></div>
     </div>
     
