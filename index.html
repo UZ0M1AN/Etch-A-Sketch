@@ -18,24 +18,52 @@
                 <h2>How To Sketch</h2>
                 <ul>
                     <li>Set your grid size and click the 'Create Grid' button (min size is 1, max size is 100)</li>
-                    <li>Click your mouse to start / stop sketching</li>
+                    <li>Click anywhere on the grid to start / stop sketching</li>
+                    <li>Choose your pen color or use multi-color pen</li>
+                    <li>Change the color of your grid with the 'Grid Color' button</li>
+                    <li>Change the color of your sketch to any color you want, even multi-color</li>
                     <li>Clear your grid with the 'Clear Grid' button</li>
+                    <li>Try it out now!</li>
                 </ul>
             </div>
 
             <div class="controls">
-                <label for="grid-size">Enter the size of your grid:</label>
-                <div class="select">
-                    <input type="number" name="grid-size" id="grid-size" min="1" max="100" placeholder="16" class="grid-size--input">
-                    <button class="controls--create-btn">Create Grid</button>
-                </div>
-                <button class="controls--clear-btn">Clear Grid</button>
-                <button class="color-scheme">Use multi-color</button>
 
-                <div class="color-picker">
-                    <label for="color-picker">Pick a color:</label>
-                    <input type="color" name="color-picker" id="color-picker" value="#eeeeee">
+                <div class="color">
+                    <div class="color-pen">
+                        <div class="color-picker">
+                            <span>Pen Color</span>
+                            <label for="color-picker"></label>
+                            <input type="color" name="color-picker" id="color-picker" value="#eeeeee" class="hidden">
+                        </div>
+                        <button class="color-picker--btn multi-color">Multi-color Pen</button>
+                    </div>
+
+                    <div class="color-grid">
+                        <label for="grid-color">Grid Color</label>
+                        <input type="color" name="grid-color" id="grid-color" value="#272C33" class="hidden">
+                    </div>
                 </div>
+
+                <div class="grid-size">
+                    <label for="grid-size">Set Grid Size:</label>
+                    <div class="grid-size--input">                    
+                        <input type="number" name="grid-size" id="grid-size" min="1" max="100" placeholder="16" class="grid-size--input__number">
+                        <input type="range" name="grid-size" class="grid-size--input__range" min="1" max="100" value="16">
+                    </div>
+                </div>
+
+                <div class="control-btns">
+                    <button class="control-btns--create btn">Create Grid</button>
+                    <button class="control-btns--clear btn">Clear Grid</button>
+                    <select name="sketch-color" id="sketch-color" class="control-btns--sketch">
+                        <option value="">Change the color of your sketch</option>
+                        <option value="multi-color">&rarr; multi-color</option>
+                        <option value="current-color">&rarr; current color</option>
+                    </select>
+                </div>
+
+                
             </div>
 
         </div>

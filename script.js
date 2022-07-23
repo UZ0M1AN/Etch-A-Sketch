@@ -4,10 +4,11 @@ console.log('UZOMIAN!!!');
 
 /////////// Event Handlers //////////////////////////
 
-const createGrid = function() {
-    if (input.value == '') return;
+const createGrid = function(e) {
+    if (e.type == 'keydown') if (e.code != 'Enter') return;
+    if (inputNum.value == '' || inputNum.value > 100 || +inputNum.value < 1) return;
 
-    const val = input.value;
+    const val = inputNum.value;
     clearGrid();
 
     // Create new grid
@@ -26,7 +27,7 @@ const clearGrid = function() {
     clearInputField();
 
     gridDiv.innerHTML = '';
-    gridDiv.setAttribute('style', `background-color: #272C33; width: ${gridDivSize}px; height: ${gridDivSize}px;`);
+    gridDiv.setAttribute('style', `background-color: ${gridDivBg}; width: ${gridDivSize}px; height: ${gridDivSize}px; border: 1px solid hsl(26, 50%, 70%);`);
 }
 
 const startAndStopDraw = function() {
@@ -40,19 +41,52 @@ const changeColor = function(e) {
     e.target.style.backgroundColor = colorBtn.textContent == multiColorText ? currentColor : generateRandomColor();
 }
 
-const changeBtnText = function(e) {
+const changeBtnStyle = function(e) {
     e.target.textContent = e.target.textContent == multiColorText ? singleColorText : multiColorText;
     colorPickerDiv.classList.toggle('hidden');
+    colorBtn.classList.toggle('multi-color');
 }
 
 const changeCurrentColor = function(e) {
     currentColor = e.target.value;
+    colorPickerLabel.style.backgroundColor = e.target.value;
+}
+
+const updateInputNum = function(e) {
+    inputNum.value = e.target.value;
+}
+
+const updateInputRange = function(e) {
+    inputRange.value = e.target.value;
+}
+
+const changeSketchColor = function(e) {
+    if (!gridDiv.childNodes.length) return;
+
+    const gridArr = [...gridDiv.childNodes];
+
+    if (e.target.value == 'multi-color') {
+        gridArr.forEach(grid => {
+            if (grid.style.backgroundColor) grid.style.backgroundColor = generateRandomColor();
+        })
+    }
+
+    if (e.target.value == 'current-color') {
+        gridArr.forEach(grid => {
+            if (grid.style.backgroundColor) grid.style.backgroundColor = currentColor;
+        })
+    }
+}
+
+const changeGridColor = function(e) {
+    gridDivBg = e.target.value;
+    gridDiv.style.backgroundColor = gridDivBg;
 }
 
 /////////// Helpers //////////////////////////
 
 const clearInputField = function() {
-    input.value = '';
+    inputNum.value = '';
 }
 
 const generateRandomColor = function() {
@@ -74,40 +108,37 @@ const generateRandomNumber = function(min, max) {
 
 // DOM Variables
 const gridDiv = document.querySelector('.grid');
-const input = document.querySelector('.grid-size--input');
-const createGridBtn = document.querySelector('.controls--create-btn');
-const clearGridBtn = document.querySelector('.controls--clear-btn');
-const colorBtn = document.querySelector('.color-scheme');
+const inputNum = document.querySelector('.grid-size--input__number');
+const inputRange = document.querySelector('.grid-size--input__range');
+const inputGridColor = document.querySelector('#grid-color');
+const createGridBtn = document.querySelector('.control-btns--create');
+const clearGridBtn = document.querySelector('.control-btns--clear');
+const colorBtn = document.querySelector('.color-picker--btn');
 const colorPickerDiv = document.querySelector('.color-picker');
 const colorPicker = document.querySelector('input[type="color"]');
+const colorPickerLabel = document.querySelector('label[for="color-picker"]');
+const sketchColor = document.querySelector('.control-btns--sketch');
 
 // Other Variables
 const gridDivSize = 560;
-const multiColorText = 'Use multi-color';
-const singleColorText = 'Use single color';
+const multiColorText = colorBtn.innerText;
+const singleColorText = 'Single-color Pen';
 let clickCount = 0;
 let currentColor = colorPicker.value;
+let gridDivBg = inputGridColor.value;
 
 // Event Listeners
 gridDiv.addEventListener('click', startAndStopDraw);
 createGridBtn.addEventListener('click', createGrid);
 clearGridBtn.addEventListener('click', clearGrid);
-colorBtn.addEventListener('click', changeBtnText);
+colorBtn.addEventListener('click', changeBtnStyle);
 colorPicker.addEventListener('change', changeCurrentColor);
+inputRange.addEventListener('change', updateInputNum);
+inputNum.addEventListener('change', updateInputRange);
+inputGridColor.addEventListener('change', changeGridColor);
+sketchColor.addEventListener('click', changeSketchColor);
+window.addEventListener('keydown', createGrid);
 
 
 clearGrid();
 
-
-// 1. Create an option to use text input or range input for selecting grid size (dblclick event perhaps?)
-// b. Perhaps add a 'change to multi-color sketch' view
-// 2. Make the color picker hide and display more beautifully
-// 3. Style your multi-color and single-color buttons better with JS (let single-color btn be the color of the currentColor)
-// b. Add a 'pen' heading to describe 3. above
-// 4. Cheer your page up a little
-// 5. Add a dark mode
-
-// Update your instructions
-// Use the radiobtn to select btw range and typed input
-// Click the 'multi-color sketch' btn to see your sketch in multi-color
-// Chose whether you want single-color or multi-color pen
