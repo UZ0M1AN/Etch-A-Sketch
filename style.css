@@ -12,7 +12,7 @@
     --outline: hsl(26, 50%, 60%);
     --btn-box-shadow: 0 .2px 3px hsla(26, 20%, 40%, .6);
     --btn-box-shadow-hover: 0 .7px 5px hsl(26, 20%, 40%, .4);
-    --btn-bg-hover: hsla(25, 20%, 40%, 0.5);
+    --btn-bg-hover: hsla(25, 20%, 40%, 0.9);
     --select-bg-hover: hsl(26, 60%, 95%);
 }
 
