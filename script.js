@@ -27,7 +27,7 @@ const clearGrid = function() {
     clearInputField();
 
     gridDiv.innerHTML = '';
-    gridDiv.setAttribute('style', `background-color: ${gridDivBg}; width: ${gridDivSize}px; height: ${gridDivSize}px; border: 1px solid hsl(26, 50%, 70%);`);
+    gridDiv.setAttribute('style', `background-color: ${gridDivBg}; width: ${gridDivSize}px; height: ${gridDivSize}px; border: 1px solid hsl(26, 50%, 65%); border-bottom: none;`);
 }
 
 const startAndStopDraw = function() {
@@ -83,6 +83,32 @@ const changeGridColor = function(e) {
     gridDiv.style.backgroundColor = gridDivBg;
 }
 
+const eraseGrid = function(e) {
+    e.target.classList.toggle('on-eraser');
+    if (gridDiv.innerHTML == '') return;
+
+    clickCount = 0;
+
+    if ([...e.target.classList].includes('on-eraser')) {
+        gridDiv.removeEventListener('click', startAndStopDraw);
+        gridDiv.addEventListener('click', onEraser);
+    }
+    else {
+        gridDiv.addEventListener('click', startAndStopDraw);
+        gridDiv.removeEventListener('click', onEraser);
+    }
+}
+
+const onEraser = function() {
+    clickCount++;
+    clickCount % 2 ? this.addEventListener('mouseover', erase) : this.removeEventListener('mouseover', erase);
+}
+
+const erase = function(e) {
+    if (e.target == gridDiv) return;
+    e.target.style.backgroundColor = '';
+};
+
 /////////// Helpers //////////////////////////
 
 const clearInputField = function() {
@@ -92,7 +118,7 @@ const clearInputField = function() {
 const generateRandomColor = function() {
     const h = generateRandomNumber(0, 360);
     const s = generateRandomNumber(0, 100);
-    const l = generateRandomNumber(40, 90);
+    const l = generateRandomNumber(0, 100);
 
     return `hsl(${h}, ${s}%, ${l}%)`;
 }
@@ -114,6 +140,7 @@ const inputGridColor = document.querySelector('#grid-color');
 const createGridBtn = document.querySelector('.control-btns--create');
 const clearGridBtn = document.querySelector('.control-btns--clear');
 const colorBtn = document.querySelector('.color-picker--btn');
+const eraseBtn = document.querySelector('.eraser-btn');
 const colorPickerDiv = document.querySelector('.color-picker');
 const colorPicker = document.querySelector('input[type="color"]');
 const colorPickerLabel = document.querySelector('label[for="color-picker"]');
@@ -124,6 +151,7 @@ const gridDivSize = 560;
 const multiColorText = colorBtn.innerText;
 const singleColorText = 'Single-color Pen';
 let clickCount = 0;
+let eraserClickCount = 0;
 let currentColor = colorPicker.value;
 let gridDivBg = inputGridColor.value;
 
@@ -132,8 +160,9 @@ gridDiv.addEventListener('click', startAndStopDraw);
 createGridBtn.addEventListener('click', createGrid);
 clearGridBtn.addEventListener('click', clearGrid);
 colorBtn.addEventListener('click', changeBtnStyle);
+eraseBtn.addEventListener('click', eraseGrid);
 colorPicker.addEventListener('change', changeCurrentColor);
-inputRange.addEventListener('change', updateInputNum);
+inputRange.addEventListener('mousemove', updateInputNum);
 inputNum.addEventListener('change', updateInputRange);
 inputGridColor.addEventListener('change', changeGridColor);
 sketchColor.addEventListener('click', changeSketchColor);
