@@ -44,7 +44,7 @@ const changeColor = function(e) {
 const changeBtnStyle = function(e) {
     e.target.textContent = e.target.textContent == multiColorText ? singleColorText : multiColorText;
     colorPickerDiv.classList.toggle('hidden');
-    colorBtn.classList.toggle('multi-color');
+    colorBtn.classList.toggle('rainbow');
 }
 
 const changeCurrentColor = function(e) {
@@ -149,7 +149,7 @@ const sketchColor = document.querySelector('.control-btns--sketch');
 // Other Variables
 const gridDivSize = 560;
 const multiColorText = colorBtn.innerText;
-const singleColorText = 'Single-color Pen';
+const singleColorText = 'Color Pen';
 let clickCount = 0;
 let eraserClickCount = 0;
 let currentColor = colorPicker.value;
