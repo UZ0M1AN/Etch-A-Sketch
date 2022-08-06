@@ -126,6 +126,15 @@ ul > li {
     align-items: center;
 }
 
+label[for='color-picker'] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--input);
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #eee;
+}
+
 .color-picker--btn {
     padding: 4px 8px;
     font-family: inherit;
@@ -149,14 +158,6 @@ ul > li {
     color: var(--body-bg);
 }
 
-label[for='color-picker'] {
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--input);
-    border-radius: 50%;
-    display: inline-block;
-    background-color: #eee;
-}
 .grid-size {
     margin-top: 24px;
 }
