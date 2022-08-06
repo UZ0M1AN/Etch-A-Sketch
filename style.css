@@ -155,7 +155,7 @@ label[for='color-picker'] {
     border: 1px solid var(--input);
     border-radius: 50%;
     display: inline-block;
-    background-color: #b3794d;
+    background-color: #eee;
 }
 .grid-size {
     margin-top: 24px;
